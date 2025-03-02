@@ -1,0 +1,14 @@
+# 忽略node_modules目录
+node_modules/
+
+# 忽略临时文件
+*.log
+*.tmp
+
+# 忽略IDE配置文件
+.vscode/
+.idea/
+
+# 忽略构建输出目录
+build/
+dist/
