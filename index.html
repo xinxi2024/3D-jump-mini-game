@@ -2,7 +2,9 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>3D跳一跳</title>
     <style>
         body {
@@ -41,15 +43,16 @@
         }
         #restartBtn {
             margin-top: 20px;
-            padding: 12px 30px;
+            padding: 15px 40px;
             background-color: #07c160;
             color: white;
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
         #restartBtn:hover {
             background-color: #06ad56;
@@ -69,15 +72,16 @@
         }
         #startBtn {
             margin-top: 20px;
-            padding: 12px 30px;
+            padding: 15px 40px;
             background-color: #07c160;
             color: white;
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
         #startBtn:hover {
             background-color: #06ad56;
@@ -85,13 +89,14 @@
         }
         .power-bar-container {
             position: absolute;
-            bottom: 30px;
+            bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
-            width: 200px;
-            height: 10px;
+            width: 60%;
+            max-width: 300px;
+            height: 15px;
             background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 5px;
+            border-radius: 8px;
             display: none;
         }
         .power-bar {
@@ -646,13 +651,26 @@
         document.addEventListener('mousedown', startJump);
         document.addEventListener('mouseup', endJump);
         document.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            startJump();
+            // 只有在游戏已开始且不是点击按钮时才阻止默认行为
+            if (gameStarted && e.target.tagName !== 'BUTTON') {
+                e.preventDefault();
+                startJump();
+            }
         });
         document.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            endJump();
+            // 只有在游戏已开始且不是点击按钮时才阻止默认行为
+            if (gameStarted && e.target.tagName !== 'BUTTON') {
+                e.preventDefault();
+                endJump();
+            }
         });
+        
+        // 防止页面滚动和缩放
+        document.addEventListener('touchmove', (e) => {
+            if (gameStarted) {
+                e.preventDefault();
+            }
+        }, { passive: false });
         
         // 重新开始按钮
         restartBtn.addEventListener('click', () => {
@@ -662,8 +680,26 @@
             restartAnimation();
         });
         
+        // 为重新开始按钮添加触摸事件
+        restartBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            gameOverElement.style.display = 'none';
+            stopAnimation();
+            init();
+            restartAnimation();
+        });
+        
         // 开始游戏按钮
         startBtn.addEventListener('click', () => {
+            startScreen.style.display = 'none';
+            gameStarted = true;
+            init();
+            restartAnimation();
+        });
+        
+        // 为开始按钮添加触摸事件
+        startBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
             startScreen.style.display = 'none';
             gameStarted = true;
             init();
