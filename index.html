@@ -27,6 +27,33 @@
             color: #333;
             text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
             font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+        #highScore {
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            font-size: 18px;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+        #timer {
+            position: absolute;
+            top: 100px;
+            left: 20px;
+            font-size: 18px;
+            color: #e74c3c;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 5px 10px;
+            border-radius: 10px;
         }
         #gameOver {
             position: absolute;
@@ -35,28 +62,46 @@
             transform: translate(-50%, -50%);
             background-color: rgba(255, 255, 255, 0.9);
             color: #333;
-            padding: 20px 30px;
+            padding: 30px 40px;
             border-radius: 15px;
             text-align: center;
             display: none;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
-        #restartBtn {
-            margin-top: 20px;
-            padding: 15px 40px;
+        #gameOver h2 {
+            margin-top: 0;
+            color: #e74c3c;
+            font-size: 32px;
+        }
+        #finalScore, #finalHighScore {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        #restartBtn, #backToMainBtn {
+            margin: 10px;
+            padding: 15px 30px;
             background-color: #07c160;
             color: white;
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 18px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.2s;
             -webkit-tap-highlight-color: transparent;
         }
+        #backToMainBtn {
+            background-color: #3498db;
+        }
+        #restartBtn:hover, #backToMainBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
         #restartBtn:hover {
             background-color: #06ad56;
-            transform: translateY(-2px);
+        }
+        #backToMainBtn:hover {
+            background-color: #2980b9;
         }
         #startScreen {
             position: absolute;
@@ -65,10 +110,44 @@
             transform: translate(-50%, -50%);
             background-color: rgba(255, 255, 255, 0.9);
             color: #333;
-            padding: 20px 30px;
+            padding: 30px 40px;
             border-radius: 15px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            width: 400px;
+        }
+        #startScreen h2 {
+            font-size: 36px;
+            margin-top: 0;
+            color: #2c3e50;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        #startScreen p {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #555;
+        }
+        .mode-selection {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+        .mode-btn {
+            padding: 10px 20px;
+            background-color: #ecf0f1;
+            color: #333;
+            border: 2px solid #bdc3c7;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .mode-btn.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #2980b9;
         }
         #startBtn {
             margin-top: 20px;
@@ -79,13 +158,15 @@
             border-radius: 30px;
             cursor: pointer;
             font-size: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             transition: all 0.2s;
             -webkit-tap-highlight-color: transparent;
+            width: 80%;
         }
         #startBtn:hover {
             background-color: #06ad56;
             transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
         }
         .power-bar-container {
             position: absolute;
@@ -98,6 +179,8 @@
             background-color: rgba(255, 255, 255, 0.5);
             border-radius: 8px;
             display: none;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         .power-bar {
             height: 100%;
@@ -116,26 +199,114 @@
             transform: translateX(-50%);
             display: none;
         }
+        .audio-control {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: all 0.2s;
+        }
+        .audio-control:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+        }
+        .audio-control svg {
+            width: 24px;
+            height: 24px;
+            fill: #333;
+        }
+        .target-indicator {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            z-index: 10;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1) translate(-50%, -50%); opacity: 0.7; }
+            50% { transform: scale(1.2) translate(-42%, -42%); opacity: 1; }
+            100% { transform: scale(1) translate(-50%, -50%); opacity: 0.7; }
+        }
+        
+        .target-arrow {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            top: 50%; 
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
     <canvas id="gameCanvas"></canvas>
     <div id="score">分数: 0</div>
+    <div id="highScore">最高分: 0</div>
+    <div id="timer" style="display: none;">时间: 60</div>
     <div id="gameOver">
         <h2>游戏结束!</h2>
         <div id="finalScore">分数: 0</div>
+        <div id="finalHighScore">最高分: 0</div>
         <button id="restartBtn">再来一次</button>
+        <button id="backToMainBtn">返回主菜单</button>
     </div>
     <div id="startScreen">
         <h2>3D跳一跳</h2>
         <p>按住屏幕或鼠标蓄力，松开跳跃</p>
         <p>跳到方块中心得分更高</p>
+        <div class="mode-selection">
+            <button id="normalModeBtn" class="mode-btn active">普通模式</button>
+            <button id="timeModeBtn" class="mode-btn">限时模式</button>
+        </div>
         <button id="startBtn">开始游戏</button>
     </div>
     <div class="power-bar-container">
         <div class="power-bar"></div>
     </div>
     <div class="shadow-player"></div>
+    <div class="audio-control" id="audioControl">
+        <svg viewBox="0 0 24 24" id="audioIcon">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+    </div>
+    <div class="target-indicator" id="targetIndicator" style="display: none;">
+        <svg viewBox="0 0 24 24" fill="#e74c3c">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+            <circle cx="12" cy="12" r="5" fill="#e74c3c"/>
+        </svg>
+    </div>
+    <div class="target-arrow" id="targetArrow" style="display: none;">
+        <svg viewBox="0 0 24 24" fill="#e74c3c">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+        </svg>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.freesound.org/previews/353/353546_5396137-lq.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="jumpSound">
+        <source src="https://cdn.freesound.org/previews/369/369515_6687700-lq.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="landSound">
+        <source src="https://cdn.freesound.org/previews/397/397701_4284968-lq.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="gameOverSound">
+        <source src="https://cdn.freesound.org/previews/277/277021_5379050-lq.mp3" type="audio/mpeg">
+    </audio>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
@@ -148,6 +319,13 @@
         let clock = new THREE.Clock();
         let playerShadow, pointLight;
         let animationFrameId = null;
+        let soundEnabled = true;
+        let particles = [];
+        let highScore = 0;
+        let gameMode = 'normal'; // 'normal', 'time', 'challenge'
+        let timeRemaining = 60; // 秒
+        let timerInterval = null;
+        let canCancelJump = true; // 是否允许取消蓄力
         
         const platformColors = [
             0x8ecdf8, 0xffbe76, 0xff7979, 0xbadc58, 0x7ed6df, 0xe056fd, 0x686de0
@@ -157,14 +335,140 @@
         
         // DOM元素
         const scoreElement = document.getElementById('score');
+        const highScoreElement = document.getElementById('highScore');
         const gameOverElement = document.getElementById('gameOver');
         const finalScoreElement = document.getElementById('finalScore');
+        const finalHighScoreElement = document.getElementById('finalHighScore');
         const restartBtn = document.getElementById('restartBtn');
+        const backToMainBtn = document.getElementById('backToMainBtn');
         const startScreen = document.getElementById('startScreen');
         const startBtn = document.getElementById('startBtn');
+        const normalModeBtn = document.getElementById('normalModeBtn');
+        const timeModeBtn = document.getElementById('timeModeBtn');
         const powerBarContainer = document.querySelector('.power-bar-container');
         const powerBar = document.querySelector('.power-bar');
         const shadowPlayer = document.querySelector('.shadow-player');
+        const timerElement = document.getElementById('timer');
+        const targetIndicator = document.getElementById('targetIndicator');
+        const targetArrow = document.getElementById('targetArrow');
+        
+        // 音频控制
+        const bgMusic = document.getElementById('bgMusic');
+        const jumpSound = document.getElementById('jumpSound');
+        const landSound = document.getElementById('landSound');
+        const gameOverSound = document.getElementById('gameOverSound');
+        const audioControl = document.getElementById('audioControl');
+        const audioIcon = document.getElementById('audioIcon');
+        
+        // 载入高分记录
+        function loadHighScore() {
+            const savedScore = localStorage.getItem('jumpHighScore');
+            if (savedScore) {
+                highScore = parseInt(savedScore);
+                highScoreElement.textContent = `最高分: ${highScore}`;
+            }
+        }
+        
+        // 保存高分记录
+        function saveHighScore() {
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('jumpHighScore', highScore);
+                highScoreElement.textContent = `最高分: ${highScore}`;
+            }
+        }
+        
+        // 创建粒子效果
+        function createParticles(position, color, count = 20) {
+            for (let i = 0; i < count; i++) {
+                const geometry = new THREE.SphereGeometry(0.1, 6, 6);
+                const material = new THREE.MeshBasicMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                
+                const particle = new THREE.Mesh(geometry, material);
+                particle.position.copy(position);
+                
+                // 随机速度
+                particle.velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 2,
+                    Math.random() * 2 + 1,
+                    (Math.random() - 0.5) * 2
+                );
+                
+                particle.lifetime = 0;
+                particle.maxLifetime = 1 + Math.random();
+                
+                scene.add(particle);
+                particles.push(particle);
+            }
+        }
+        
+        // 更新粒子效果
+        function updateParticles(deltaTime) {
+            const particlesToRemove = [];
+            
+            for (let i = 0; i < particles.length; i++) {
+                const particle = particles[i];
+                
+                // 更新位置
+                particle.position.x += particle.velocity.x * deltaTime;
+                particle.position.y += particle.velocity.y * deltaTime;
+                particle.position.z += particle.velocity.z * deltaTime;
+                
+                // 添加重力
+                particle.velocity.y -= 5 * deltaTime;
+                
+                // 减小不透明度
+                particle.material.opacity = 1 - (particle.lifetime / particle.maxLifetime);
+                
+                // 更新生命周期
+                particle.lifetime += deltaTime;
+                
+                // 检查是否应该移除
+                if (particle.lifetime >= particle.maxLifetime) {
+                    particlesToRemove.push(particle);
+                }
+            }
+            
+            // 移除过期粒子
+            for (const particle of particlesToRemove) {
+                scene.remove(particle);
+                particles.splice(particles.indexOf(particle), 1);
+            }
+        }
+        
+        // 设置游戏模式
+        function setGameMode(mode) {
+            gameMode = mode;
+            
+            if (mode === 'time') {
+                timeRemaining = 60;
+                timerElement.textContent = `时间: ${timeRemaining}`;
+                timerElement.style.display = 'block';
+                
+                // 启动计时器
+                if (timerInterval) clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    timeRemaining--;
+                    timerElement.textContent = `时间: ${timeRemaining}`;
+                    
+                    if (timeRemaining <= 0) {
+                        // 游戏结束
+                        clearInterval(timerInterval);
+                        onFailedLanding();
+                    }
+                }, 1000);
+            } else {
+                timerElement.style.display = 'none';
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+            }
+        }
         
         // 初始化游戏
         function init() {
@@ -207,6 +511,7 @@
             gameOver = false;
             platforms = [];
             shadows = [];
+            particles = [];
             currentPlatform = 0;
             targetPlatform = 1;
             
@@ -230,6 +535,11 @@
             
             // 设置相机位置
             updateCamera();
+            
+            // 设置游戏模式
+            if (gameMode === 'time') {
+                setGameMode('time');
+            }
         }
         
         // 创建玩家
@@ -368,12 +678,78 @@
             return newPlatform;
         }
         
+        // 更新目标指示器
+        function updateTargetIndicator() {
+            if (!gameStarted || gameOver || jumping || player.jumping) {
+                targetIndicator.style.display = 'none';
+                targetArrow.style.display = 'none';
+                return;
+            }
+            
+            if (targetPlatform < platforms.length) {
+                const targetPlatformObj = platforms[targetPlatform];
+                
+                // 将3D坐标转换为屏幕坐标
+                const vector = new THREE.Vector3();
+                vector.setFromMatrixPosition(targetPlatformObj.mesh.matrixWorld);
+                vector.project(camera);
+                
+                const widthHalf = window.innerWidth / 2;
+                const heightHalf = window.innerHeight / 2;
+                
+                const x = (vector.x * widthHalf) + widthHalf;
+                const y = - (vector.y * heightHalf) + heightHalf;
+                
+                // 检查目标是否在视口内
+                const isInViewport = (
+                    x > 0 && x < window.innerWidth &&
+                    y > 0 && y < window.innerHeight
+                );
+                
+                if (isInViewport) {
+                    // 显示目标指示器
+                    targetIndicator.style.display = 'block';
+                    targetIndicator.style.left = x + 'px';
+                    targetIndicator.style.top = y + 'px';
+                    targetArrow.style.display = 'none';
+                } else {
+                    // 显示箭头指向视口外的目标
+                    targetIndicator.style.display = 'none';
+                    targetArrow.style.display = 'block';
+                    
+                    // 计算箭头位置和角度
+                    const centerX = window.innerWidth / 2;
+                    const centerY = window.innerHeight / 2;
+                    
+                    // 计算从中心到目标的角度
+                    const angle = Math.atan2(y - centerY, x - centerX);
+                    
+                    // 计算边缘坐标
+                    const edgeDistance = Math.min(window.innerWidth, window.innerHeight) * 0.4;
+                    const edgeX = centerX + Math.cos(angle) * edgeDistance;
+                    const edgeY = centerY + Math.sin(angle) * edgeDistance;
+                    
+                    // 设置箭头位置
+                    targetArrow.style.left = edgeX + 'px';
+                    targetArrow.style.top = edgeY + 'px';
+                    
+                    // 设置箭头旋转
+                    const degrees = (angle * 180 / Math.PI);
+                    targetArrow.style.transform = `translate(-50%, -50%) rotate(${degrees}deg)`;
+                }
+            } else {
+                targetIndicator.style.display = 'none';
+                targetArrow.style.display = 'none';
+            }
+        }
+        
         // 开始跳跃
         function startJump() {
             if (!player.jumping && !gameOver && gameStarted) {
                 jumping = true;
                 jumpStart = Date.now();
                 powerBarContainer.style.display = 'block';
+                jumpHelpText.style.display = 'block';
                 
                 // 确保targetPlatform索引有效
                 if (targetPlatform >= platforms.length) {
@@ -389,6 +765,23 @@
                 
                 // 显示预测阴影
                 updateJumpPreview();
+                
+                // 隐藏目标指示器
+                targetIndicator.style.display = 'none';
+                targetArrow.style.display = 'none';
+            }
+        }
+        
+        // 取消跳跃
+        function cancelJump() {
+            if (jumping && canCancelJump) {
+                jumping = false;
+                powerBarContainer.style.display = 'none';
+                playerShadow.visible = false;
+                jumpHelpText.style.display = 'none';
+                
+                // 重新显示目标指示器
+                updateTargetIndicator();
             }
         }
         
@@ -438,9 +831,13 @@
                 jumping = false;
                 powerBarContainer.style.display = 'none';
                 playerShadow.visible = false;
+                jumpHelpText.style.display = 'none';
                 
                 const jumpDuration = Math.min((Date.now() - jumpStart) / 1000, 1.5);
                 const jumpForce = Math.min(jumpDuration * 7, 10); // 最大力度10
+                
+                // 播放跳跃音效
+                playSound(jumpSound);
                 
                 // 计算跳跃速度
                 const jumpVelocity = jumpDirection.clone().multiplyScalar(jumpForce * 1.2);
@@ -541,6 +938,9 @@
         
         // 成功着陆
         function onSuccessfulLanding(accuracy) {
+            // 播放着陆音效
+            playSound(landSound);
+            
             // 设置新的当前平台
             currentPlatform = targetPlatform;
             targetPlatform = platforms.length; // 将指向下一个平台的索引
@@ -552,6 +952,19 @@
             
             score += points;
             scoreElement.textContent = `分数: ${score}`;
+            
+            // 如果是时间模式，添加时间
+            if (gameMode === 'time') {
+                timeRemaining += 2; // 每次成功着陆增加2秒
+                document.getElementById('timer').textContent = `时间: ${timeRemaining}`;
+            }
+            
+            // 创建成功着陆的粒子效果
+            createParticles(
+                new THREE.Vector3(player.position.x, 0.5, player.position.z),
+                platforms[currentPlatform].mesh.material.color.getHex(),
+                10
+            );
             
             // 闪烁平台颜色表示成功
             const originalColor = platforms[currentPlatform].mesh.material.color.getHex();
@@ -587,6 +1000,16 @@
         
         // 失败着陆
         function onFailedLanding() {
+            // 播放游戏结束音效
+            playSound(gameOverSound);
+            
+            // 创建失败粒子效果
+            createParticles(
+                new THREE.Vector3(player.position.x, player.position.y, player.position.z),
+                0xff0000,
+                30
+            );
+            
             // 玩家掉落动画
             player.falling = true;
             player.fallSpeed = 0;
@@ -594,9 +1017,19 @@
             // 更新游戏状态
             gameOver = true;
             
+            // 保存高分
+            saveHighScore();
+            
+            // 清除计时器
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            
             // 显示游戏结束界面
             setTimeout(() => {
                 finalScoreElement.textContent = `最终分数: ${score}`;
+                finalHighScoreElement.textContent = `最高分: ${highScore}`;
                 gameOverElement.style.display = 'block';
             }, 1500);
         }
@@ -653,6 +1086,12 @@
                 }
             }
             
+            // 更新粒子效果
+            updateParticles(deltaTime);
+            
+            // 更新目标指示器
+            updateTargetIndicator();
+            
             // 平滑更新相机
             if (!gameOver && !player.jumping) {
                 updateCamera();
@@ -686,27 +1125,119 @@
         // 初始化事件监听
         document.addEventListener('mousedown', startJump);
         document.addEventListener('mouseup', endJump);
+        document.addEventListener('keydown', (e) => {
+            // ESC键取消跳跃
+            if (e.key === 'Escape') {
+                cancelJump();
+            }
+        });
+
+        // 处理多点触摸
+        let touchStartCount = 0;
         document.addEventListener('touchstart', (e) => {
-            // 只有在游戏已开始且不是点击按钮时才阻止默认行为
+            touchStartCount = e.touches.length;
+            
+            // 只有在游戏已开始且不是点击按钮时才进行处理
             if (gameStarted && e.target.tagName !== 'BUTTON') {
                 e.preventDefault();
-                startJump();
+                
+                // 单指触摸开始蓄力，双指触摸取消蓄力
+                if (touchStartCount === 1) {
+                    startJump();
+                } else if (touchStartCount >= 2) {
+                    cancelJump();
+                }
             }
-        });
+        }, { passive: false });
+
+        // 处理触摸结束
         document.addEventListener('touchend', (e) => {
-            // 只有在游戏已开始且不是点击按钮时才阻止默认行为
+            // 只有在游戏已开始且不是点击按钮时才进行处理
             if (gameStarted && e.target.tagName !== 'BUTTON') {
                 e.preventDefault();
-                endJump();
+                if (jumping) {
+                    endJump();
+                }
             }
-        });
-        
+        }, { passive: false });
+
         // 防止页面滚动和缩放
         document.addEventListener('touchmove', (e) => {
             if (gameStarted) {
                 e.preventDefault();
             }
         }, { passive: false });
+        
+        // 游戏模式选择
+        normalModeBtn.addEventListener('click', () => {
+            normalModeBtn.classList.add('active');
+            timeModeBtn.classList.remove('active');
+            gameMode = 'normal';
+        });
+        
+        timeModeBtn.addEventListener('click', () => {
+            timeModeBtn.classList.add('active');
+            normalModeBtn.classList.remove('active');
+            gameMode = 'time';
+        });
+        
+        // 开始游戏按钮
+        startBtn.addEventListener('click', () => {
+            startScreen.style.display = 'none';
+            gameStarted = true;
+            
+            // 开始播放背景音乐
+            if (soundEnabled) {
+                bgMusic.play().catch(e => console.log("Background music failed to play:", e));
+            }
+            
+            init();
+            restartAnimation();
+        });
+        
+        // 为开始按钮添加触摸事件
+        startBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startScreen.style.display = 'none';
+            gameStarted = true;
+            
+            // 开始播放背景音乐
+            if (soundEnabled) {
+                bgMusic.play().catch(e => console.log("Background music failed to play:", e));
+            }
+            
+            init();
+            restartAnimation();
+        });
+        
+        // 返回主菜单按钮
+        backToMainBtn.addEventListener('click', () => {
+            gameOverElement.style.display = 'none';
+            startScreen.style.display = 'block';
+            gameStarted = false;
+            
+            if (soundEnabled) {
+                bgMusic.pause();
+                bgMusic.currentTime = 0;
+            }
+            
+            stopAnimation();
+        });
+        
+        // 为返回主菜单按钮添加触摸事件
+        backToMainBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            gameOverElement.style.display = 'none';
+            startScreen.style.display = 'block';
+            gameStarted = false;
+            
+            if (soundEnabled) {
+                bgMusic.pause();
+                bgMusic.currentTime = 0;
+            }
+            
+            stopAnimation();
+        });
         
         // 重新开始按钮
         restartBtn.addEventListener('click', () => {
@@ -725,23 +1256,6 @@
             restartAnimation();
         });
         
-        // 开始游戏按钮
-        startBtn.addEventListener('click', () => {
-            startScreen.style.display = 'none';
-            gameStarted = true;
-            init();
-            restartAnimation();
-        });
-        
-        // 为开始按钮添加触摸事件
-        startBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            startScreen.style.display = 'none';
-            gameStarted = true;
-            init();
-            restartAnimation();
-        });
-        
         // 窗口大小调整
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
@@ -749,9 +1263,80 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
         
+        // 音频控制图标切换
+        function updateAudioIcon() {
+            if (soundEnabled) {
+                audioIcon.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+            } else {
+                audioIcon.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
+            }
+        }
+        
+        // 播放音效
+        function playSound(sound) {
+            if (soundEnabled) {
+                sound.currentTime = 0;
+                sound.play().catch(e => console.log("Audio play failed:", e));
+            }
+        }
+        
+        // 音频控制事件
+        audioControl.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            updateAudioIcon();
+            
+            if (soundEnabled) {
+                if (gameStarted && !gameOver) {
+                    try {
+                        if (bgMusic.paused) {
+                            bgMusic.play().catch(e => console.log("Background music failed to play:", e));
+                        }
+                    } catch (e) {
+                        console.log("Error playing background music:", e);
+                    }
+                }
+            } else {
+                try {
+                    if (!bgMusic.paused) {
+                        bgMusic.pause();
+                    }
+                } catch (e) {
+                    console.log("Error pausing background music:", e);
+                }
+            }
+        });
+        
+        // 更新音频图标初始状态
+        updateAudioIcon();
+        
         // 第一次加载
         init();
         animate();
+        
+        // 加载高分
+        loadHighScore();
+
+        // 添加右键取消蓄力
+        document.addEventListener('contextmenu', (e) => {
+            if (gameStarted) {
+                e.preventDefault(); // 阻止默认右键菜单
+                cancelJump();
+            }
+        });
+
+        // 界面提示
+        const jumpHelpText = document.createElement('div');
+        jumpHelpText.style.position = 'absolute';
+        jumpHelpText.style.bottom = '20px';
+        jumpHelpText.style.left = '20px';
+        jumpHelpText.style.color = '#333';
+        jumpHelpText.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
+        jumpHelpText.style.padding = '8px 12px';
+        jumpHelpText.style.fontSize = '14px';
+        jumpHelpText.style.borderRadius = '5px';
+        jumpHelpText.style.display = 'none';
+        jumpHelpText.textContent = 'ESC或右键点击可取消蓄力';
+        document.body.appendChild(jumpHelpText);
     </script>
 </body>
 </html>
